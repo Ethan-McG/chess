@@ -173,8 +173,31 @@ def King_is_valid(i_square,m_square,players_turn,board):
             if ord(str(m_square[0])) >=  ord("a") and   int(m_square[1]) <= 8:
                 return True      
         
+Winning_player = "no_one"
         
+    
+def is_black_king_dead(board) :
+    found_king = 0
+    for i in range(8):
+        for j in range(8):
+            if Black_King == board[i][j]:
+                found_king = 1 
         
+    if found_king == 0:
+        Winning_player = "White"
+        return True
+    
+def is_white_king_dead(board) :
+    found_king = 0
+    for i in range(8):
+        for j in range(8):
+            if White_King == board[i][j]:
+                found_king = 1
+           
+    if found_king == 0:
+        Winning_player = "Black"
+        return True
+            
         
         
         
@@ -185,6 +208,14 @@ def King_is_valid(i_square,m_square,players_turn,board):
  
 def check_for_movement(players_turn,board): 
     while True:
+        if is_black_king_dead(board) :
+            print(f"Game over; White has won! ")
+            break 
+        if is_white_king_dead(board) :
+            print(f"Game over; Black has won! ")
+            break 
+        
+        
         print()
         print(f"{players_turn} turn")
         print("Enter the current square of piece: ", end = '')
@@ -268,7 +299,7 @@ def check_for_movement(players_turn,board):
      
         
      
-        print(movement_of_piece(i_square, m_square,players_turn,board))
+        movement_of_piece(i_square, m_square,players_turn,board)
         break
         
 
@@ -289,9 +320,8 @@ def movement_of_piece(i_square, m_square,players_turn,board):
     else:
         players_turn = "White's"
    
-    print(check_for_movement(players_turn,board))
+    check_for_movement(players_turn,board)
         
-
 
 
 main()
